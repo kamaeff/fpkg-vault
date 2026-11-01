@@ -357,7 +357,7 @@ def handle_cover(cli, vn, rem):
 
     abspath = get_abspath(vn, rem)
     if not abspath:
-        cli.log(f'trying to get pkg cover for not a file:\n\t\t{vpath=!r}\n\t\t{abspath=!r}')
+        cli.log(f'trying to get pkg cover for not a file:\n\t\t{rem=!r}\n\t\t{abspath=!r}')
         return ''
 
     with PkgFile(abspath) as pkg:
@@ -843,8 +843,7 @@ def get_base_url(cli, *, bauth=False, swaphost=False):
 
 
 def get_abspath(vn, rem, should_be_file=True) -> str:
-    vpath = ndp(vn.vpath) + nfp(rem)
-    vn, rem = vn.get(vpath, '*', False, False, False, False, False, None)
+    vn, rem = vn.get(rem, '*', False, False, False, False, False, None)
     abspath = vn.canonical(rem)
     if should_be_file and not os.path.isfile(abspath):
         return None
